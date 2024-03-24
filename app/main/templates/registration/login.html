@@ -30,16 +30,26 @@
                         <div class="form-icon">
                             <i class="fa fa-user-circle"></i>
                         </div>
-                        <div class="form-group">
+
+                        <form class="p-3 mt-3"  method="post">
+                            {% csrf_token %}
+                           <div class="form-group">
                             <span class="input-icon"><i class="fa fa-user"></i></span>
-                            <input type="email" class="form-control" placeholder="Username">
+                            <input type="text" name="username" id="userName" class="form-control" placeholder="Username">
                         </div>
+
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-lock"></i></span>
                             <input type="password" class="form-control" placeholder="Password">
                             <span class="forgot"><a href="">Forgot Password?</a></span>
                         </div>
+                            {{ from.errors }}
                         <button class="btn signin">Login</button>
+
+                        </form>
+
+
+
                     </form>
                 </div>
             </div>
