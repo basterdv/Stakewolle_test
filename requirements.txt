@@ -20,3 +20,8 @@ httpx==0.26.0
 
 # Utils
 python-dotenv==1.0.0
+
+# Tests
+pytest==7.1.2
+pytest-asyncio==0.18.0
+aiosqlite==0.17.0
