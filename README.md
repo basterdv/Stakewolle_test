@@ -22,4 +22,54 @@
 
 <h3>Инструкциями по запуску и тестированию:</h3>
 
+## Структура проекта
+
+```
+referral_service/
+├── app/
+│   ├── api/                  # Транспортный слой (Route handlers)
+│   │   ├── v1/
+│   │   │   ├── endpoints/    # Эндпоинты разделенные по логике
+│   │   │   │   ├── auth.py
+│   │   │   │   ├── users.py
+│   │   │   │   └── referrals.py
+│   │   │   └── api.py        # Объединение всех роутеров
+│   │   └── deps.py           # Зависимости (Логика извлечения)
+│   ├── core/                 # Глобальные настройки
+│   │   ├── config.py         # Pydantic-settings (env)
+│   │   └── security.py       # JWT, хеширование паролей
+│   ├── db/                   # Слой работы с БД
+│   │   ├── session.py        # Настройка асинхронного движка SQLAlchemy
+│   │   └── base.py           # Импорт всех моделей для Alembic
+│   ├── models/               # SQLAlchemy модели
+│   │   ├── user.py
+│   │   └── referral.py
+│   ├── schemas/              # Pydantic модели (DTO)
+│   │   ├── user.py
+│   │   ├── token.py
+│   │   └── referral.py
+│   ├── services/             # Бизнес-логика (Service Layer)
+│   │   ├── auth_service.py
+│   │   ├── referral_service.py
+│   │   └── integrations/     # Внешние API
+│   │       ├── clearbit.py
+│   │       └── hunter.py
+│   ├── crud/                 # Базовые операции с БД (Create, Read, Update, Delete)
+│   │   ├── base.py
+│   │   ├── crud_user.py
+│   │   └── crud_referral.py
+│   └── main.py               # Точка входа FastAPI
+├── migrations/               # Файлы миграций Alembic
+├── tests/                    # Unit и Integration тесты (pytest)
+├── .env                      # Секреты (не пушить в git)
+├── .env.example              # Пример переменных окружения
+├── alembic.ini               # Конфиг миграций
+├── docker-compose.yml        # Оркестрация (App, Postgres, Redis)
+├── Dockerfile                # Сборка образа приложения
+├── pyproject.toml            # Зависимости (Poetry) или requirements.txt
+└── README.md                 # Документация по запуску
+
+```
+
+
 
