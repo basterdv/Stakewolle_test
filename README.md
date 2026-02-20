@@ -71,5 +71,64 @@ referral_service/
 
 ```
 
+# Referral System API (FastAPI)
 
+Простой RESTful API сервис для реферальной системы с JWT-аутентификацией, кэшированием в Redis и интеграцией с внешними API.
+
+## Стек технологий
+- **Backend:** FastAPI (Python 3.11+)
+- **Database:** PostgreSQL + SQLAlchemy 2.0 (Async)
+- **Migrations:** Alembic
+- **Cache:** Redis (асинхронный драйвер)
+- **Auth:** JWT (OAuth2 Password Flow)
+- **Tools:** Docker Compose, Pydantic v2, HTTPX
+
+---
+
+## Как запустить
+
+### 1. Подготовка окружения
+Склонируйте репозиторий и создайте файл `.env` (возьмите за основу `.env.example`):
+```bash
+cp .env.example .env
+```
+
+### 2. Запуск контейнера
+````
+docker-compose up --build
+````
+
+### 3. Применение миграций
+````
+docker-compose exec app alembic upgrade head
+````
+
+### 4. Запуск сервиса
+````
+docker-compose exec app python main.py
+````
+
+### 5. Тестирование
+````
+docker-compose exec app pytest
+````
+
+## Документация и сервис
+Сервис будет доступен по адресу: http://localhost:8000
+Документация доступна по адресу: http://localhost:8000/docs
+
+## Основные эндпоинты
+### Аутентификация
+- POST /api/v1/auth/register — Регистрация пользователя (с проверкой email через Hunter.io).
+- POST /api/v1/auth/login — Получение JWT-токена (используйте кнопку Authorize в Swagger).
+### Реферальная система
+- POST /api/v1/referrals/code — Создание кода (1 активный на юзера, с указанием expires_at).
+- DELETE /api/v1/referrals/code — Удаление своего кода.
+- GET /api/v1/referrals/code-by-email?email=... — Публичный поиск кода по email (с кэшированием в Redis).
+- GET /api/v1/users/{id}/referrals — Список всех рефералов конкретного пользователя.
+
+
+## Автор
+
+- [@basterdv](https://github.com/basterdv/)
 
